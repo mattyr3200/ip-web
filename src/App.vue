@@ -1,6 +1,6 @@
 
 <template>
-  Hello Worlds
+  <router-view />
 </template>
 
 <script setup>
