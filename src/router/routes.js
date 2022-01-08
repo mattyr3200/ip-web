@@ -1,12 +1,12 @@
-import { createRouter, createWebHistory } from 'vue-router'
-import TestComponent from '../components/TestComponent.vue'
+import { createRouter, createWebHistory } from "vue-router";
+import TestComponent from "../components/TestComponent.vue";
 
 export default createRouter({
   history: createWebHistory(),
   routes: [
     {
-      path: '/',
+      path: "/",
       component: TestComponent,
-    }
-  ]
-})
+    },
+  ],
+});
