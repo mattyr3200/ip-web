@@ -20,7 +20,7 @@
             placeholder="Email"
           />
           <label
-            for="password"
+            for="email"
             class="absolute left-0 -top-3.5 text-white md:text-gray-600 text-sm transition-all md:peer-placeholder-shown:text-gray-400 peer-placeholder-shown:text-base peer-invalid:text-red-500 peer-placeholder-shown:text-white peer-placeholder-shown:top-2 peer-focus:-top-3.5 md:peer-focus:text-gray-600 peer-focus:text-gray-200 peer-focus:text-sm"
             >Email</label
           >
@@ -54,15 +54,15 @@
 </template>
 
 <script setup>
-import axios from "../../api/api";
 import router from "../../router/routes";
 import { ref } from "vue";
+import apiClient from "../../api/api";
 
 const email = ref("");
 const password = ref("");
 
 function login() {
-  axios
+  apiClient
     .post("/api/login", {
       email: email.value,
       password: password.value,

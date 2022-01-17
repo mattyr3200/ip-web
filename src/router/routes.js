@@ -1,4 +1,4 @@
-import { createRouter, createWebHashHistory } from "vue-router";
+import { createRouter, createWebHistory } from "vue-router";
 import TestComponent from "../components/TestComponent.vue";
 import LoginScreen from "../components/Auth/LoginScreen.vue";
 import RegisterScreen from "../components/Auth/RegisterScreen.vue";
@@ -7,7 +7,6 @@ import isAuthenticated from "../helpers/authenticated";
 /**
  * requiresAuth: Determine whether a user should be logged in to access the route
  */
-
 const routes = [
   {
     path: "/",
@@ -30,9 +29,8 @@ const routes = [
 ];
 
 const router = createRouter({
-  // 4. Provide the history implementation to use. We are using the hash history for simplicity here.
-  history: createWebHashHistory(),
-  routes, // short for `routes: routes`
+  history: createWebHistory(),
+  routes,
 });
 
 router.beforeEach((to, from, next) => {

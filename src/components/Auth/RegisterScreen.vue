@@ -1,7 +1,124 @@
 <template>
-  <div>Hello</div>
+  <div>
+    <div
+      class="grid place-items-center h-screen bg-gradient-to-r from-cyan-500 to-blue-500"
+    >
+      <form
+        @submit.prevent="register"
+        class="m-4 space-y-4 md:p-4 md:shadow-lg md:rounded-lg md:bg-white w-full md:w-96"
+      >
+        <div class="flex justify-center w-full md:max-w-md">
+          <img src="../../assets/logo.png" alt="logo" class="w-11 h-11" />
+        </div>
+        <h1 class="m-4 font-semibold text-white font-mono md:text-gray-600">
+          Register
+        </h1>
+        <div class="relative m-4">
+          <input
+            id="username"
+            v-model="username"
+            type="text"
+            required
+            name="username"
+            class="peer h-10 w-full border-b-2 border-gray-300 text-white md:text-gray-900 placeholder-transparent bg-transparent focus:outline-none valid:focus:border-blue-600"
+            placeholder="username"
+          />
+          <label
+            for="username"
+            class="absolute left-0 -top-3.5 text-white md:text-gray-600 text-sm transition-all md:peer-placeholder-shown:text-gray-400 peer-placeholder-shown:text-base peer-placeholder-shown:text-white peer-placeholder-shown:top-2 peer-focus:-top-3.5 md:peer-focus:text-gray-600 peer-focus:text-gray-200 peer-focus:text-sm"
+            >Username</label
+          >
+        </div>
+        <div class="relative m-4">
+          <input
+            id="email"
+            v-model="email"
+            type="email"
+            name="email"
+            class="peer h-10 w-full border-b-2 invalid:border-red-500 invalid:text-red-500 border-gray-300 text-white md:text-gray-900 placeholder-transparent bg-transparent focus:outline-none valid:focus:border-blue-600"
+            placeholder="Email"
+          />
+          <label
+            for="email"
+            class="absolute left-0 -top-3.5 text-white md:text-gray-600 text-sm transition-all md:peer-placeholder-shown:text-gray-400 peer-placeholder-shown:text-base peer-invalid:text-red-500 peer-placeholder-shown:text-white peer-placeholder-shown:top-2 peer-focus:-top-3.5 md:peer-focus:text-gray-600 peer-focus:text-gray-200 peer-focus:text-sm"
+            >Email</label
+          >
+        </div>
+        <div class="relative m-4">
+          <input
+            id="password"
+            required
+            v-model="password"
+            type="password"
+            name="password"
+            class="peer h-10 w-full border-b-2 border-gray-300 text-white md:text-gray-900 placeholder-transparent bg-transparent focus:outline-none focus:border-blue-600"
+            placeholder="Password"
+          />
+          <label
+            for="password"
+            class="absolute left-0 -top-3.5 text-white md:text-gray-600 text-sm transition-all md:peer-placeholder-shown:text-gray-400 peer-placeholder-shown:text-base peer-placeholder-shown:text-white peer-placeholder-shown:top-2 peer-focus:-top-3.5 md:peer-focus:text-gray-600 peer-focus:text-gray-200 peer-focus:text-sm"
+            >Password</label
+          >
+          <PasswordStrengthIndicatorVue :score="passwordStrength" />
+        </div>
+        <div class="relative m-4">
+          <input
+            id="c_password"
+            required
+            v-model="confirmedPassword"
+            type="password"
+            name="c_password"
+            class="peer h-10 w-full border-b-2 border-gray-300 text-white md:text-gray-900 placeholder-transparent bg-transparent focus:outline-none focus:border-blue-600"
+            placeholder="Password"
+          />
+          <label
+            for="c_password"
+            class="absolute left-0 -top-3.5 text-white md:text-gray-600 text-sm transition-all md:peer-placeholder-shown:text-gray-400 peer-placeholder-shown:text-base peer-placeholder-shown:text-white peer-placeholder-shown:top-2 peer-focus:-top-3.5 md:peer-focus:text-gray-600 peer-focus:text-gray-200 peer-focus:text-sm"
+            >Confirm Password</label
+          >
+        </div>
+        <div class="flex justify-end m-4">
+          <button
+            type="submit"
+            :disabled="formValid"
+            class="p-2 rounded-full pl-4 pr-4 border-blue-300 bg-white disabled:bg-blue-300 hover:bg-slate-300 disabled:md:bg-blue-300 md:bg-blue-600 md:hover:bg-blue-800 md:text-white"
+          >
+            Login
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
 </template>
 
-<script module>
-export default {};
+<script setup>
+import { ref, computed } from "vue";
+import PasswordStrengthIndicatorVue from "./PasswordStrengthIndicator.vue";
+import zxcvbn from "zxcvbn";
+
+const username = ref("");
+const email = ref("");
+const password = ref("");
+const confirmedPassword = ref("");
+
+const register = () => {
+  console.log("HERE");
+};
+
+const passwordStrength = computed(() => {
+  return zxcvbn(password.value).score;
+});
+
+const passwordsMatch = computed(() => {
+  return password.value === confirmedPassword.value;
+});
+
+const formValid = computed(() => {
+  return !(
+    passwordsMatch.value &&
+    username.value != "" &&
+    email.value != "" &&
+    password.value != ""
+  );
+});
 </script>
