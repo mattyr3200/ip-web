@@ -1,9 +1,10 @@
 <template>
   <div>
-    <nav class="">
+    <nav>
       <div
-        class="shadow-lg md:shadow-none m-2 md:m-0 rounded-lg md:flex md:items-center md:justify-evenly md:py-2 p-4 md:px-6"
+        class="space-y-1 md:space-y-0 shadow-lg md:shadow-none m-2 md:m-0 rounded-lg md:flex md:items-center md:justify-evenly md:py-2 p-4 md:px-6"
       >
+        <!-- Mobile Menu -->
         <div class="w-full md:w-8 flex justify-between">
           <img src="../../assets/logo.png" class="h-8 w-8" alt="" />
           <button class="md:hidden" v-on:click="showNavList">
@@ -11,6 +12,8 @@
             <CrossOutline :class="{ hidden: navVisible }" />
           </button>
         </div>
+
+        <!-- Clickable Links -->
         <a
           href="#"
           :class="{ 'hidden md:block': navVisible }"
@@ -35,23 +38,29 @@
           class="block transition-colors duration-200 hover:bg-slate-300 p-4 rounded"
           >Products</a
         >
-        <div class="hidden md:flex md:items-center">
+
+        <!-- Login and Register Buttons -->
+        <div
+          :class="{ 'hidden md:flex': navVisible }"
+          class="md:flex space-y-1 md:space-y-0 md:space-x-2 md:items-center"
+        >
           <a
             href="/login"
-            class="rounded py-2 px-2 transition-colors duration-200 hover:bg-slate-300"
+            class="block p-4 md:p-2 rounded transition-colors duration-200 bg-slate-300 md:hover:bg-slate-300 md:bg-transparent hover:bg-slate-400"
             >Login</a
           >
           <a
             href="/register"
-            class="text-white py-3 px-3 rounded transition-colors duration-200 hover:bg-blue-500 bg-blue-400"
+            class="block p-4 md:mt-0 md:p-3 text-white rounded transition-colors duration-200 hover:bg-blue-500 bg-blue-400"
             >Register</a
           >
         </div>
       </div>
     </nav>
 
-    <div>
-      {{ navVisible }}
+    <div class="p-2">
+      <!-- Content Slot -->
+      <slot></slot>
     </div>
   </div>
 </template>

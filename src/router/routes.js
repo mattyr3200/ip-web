@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
-import TestComponent from "../components/TestComponent.vue";
+import HomePage from "../components/HomePages/HomePage.vue";
 import LoginScreen from "../components/Auth/LoginScreen.vue";
 import RegisterScreen from "../components/Auth/RegisterScreen.vue";
 import isAuthenticated from "../helpers/authenticated";
@@ -10,7 +10,7 @@ import isAuthenticated from "../helpers/authenticated";
 const routes = [
   {
     path: "/",
-    component: TestComponent,
+    component: HomePage,
     name: "home",
     meta: { requiresAuth: false },
   },

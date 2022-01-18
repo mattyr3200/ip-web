@@ -67,7 +67,9 @@
         </div>
       </div>
 
-      <div>CONTENT</div>
+      <div class="p-4">
+        <slot> </slot>
+      </div>
     </div>
   </div>
 </template>
