@@ -95,6 +95,8 @@
 import { ref, computed } from "vue";
 import PasswordStrengthIndicatorVue from "./PasswordStrengthIndicator.vue";
 import zxcvbn from "zxcvbn";
+import apiClient from "../../api/api";
+import router from "../../router/routes";
 
 const username = ref("");
 const email = ref("");
@@ -102,7 +104,19 @@ const password = ref("");
 const confirmedPassword = ref("");
 
 const register = () => {
-  console.log("HERE");
+  apiClient
+    .post("/api/register", {
+      username: username.value,
+      email: email.value,
+      password: password.value,
+    })
+    .then((response) => {
+      localStorage.setItem("user_token", response.data.token);
+      router.push({ name: "dashboard" });
+    })
+    .catch((e) => {
+      console.log(e);
+    });
 };
 
 const passwordStrength = computed(() => {

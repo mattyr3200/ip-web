@@ -1,11 +1,11 @@
 <template>
-  <div class="min-h-screen flex">
+  <div class="min-h-screen flex relative">
     <div
-      class="w-72 bg-slate-300 space-y-6 py-7 px-2 absolute inset-y-0 left-0 transform md:relative md:translate-x-0 transition duration-200 ease-in-out"
+      class="absolute w-72 bg-slate-300 space-y-6 py-7 px-2 inset-y-0 left-0 transform md:relative md:translate-x-0 transition duration-200 ease-in-out"
       :class="{ '-translate-x-full': showSideBar }"
     >
       <!-- Top Logo -->
-      <div class="flex items-center justify-between">
+      <div class="flex items-center justify-between sticky top-4">
         <a href="#" class="text-gray-600 flex items-center space-x-2 px-4">
           <img
             src="../../assets/logo.png"
@@ -24,11 +24,14 @@
       </div>
 
       <!-- Links -->
-      <nav>
+      <nav class="sticky top-16 space-y-1">
         <!-- Home Button -->
         <a
           href="#"
           class="flex py-3 px-2 rounded hover:bg-gray-400 transition-colors duration-150 space-x-2"
+          :class="{
+            'bg-gray-400': $router.currentRoute.value.name === 'dashboard',
+          }"
         >
           <HomeOutlined />
           <p>Home</p>
@@ -56,7 +59,9 @@
 
     <div class="w-full">
       <!-- Top Nav Bar -->
-      <div class="h-16 w-full flex items-center justify-between md:justify-end">
+      <div
+        class="h-16 w-full flex items-center justify-between md:justify-end md:sticky md:top-0"
+      >
         <!-- Hamburger Icon -->
         <button class="px-2 md:hidden" v-on:click="updateShowSidebar">
           <HamburgerOutlined />
@@ -89,5 +94,3 @@ function updateShowSidebar() {
   showSideBar.value = !showSideBar.value;
 }
 </script>
-
-<style></style>
