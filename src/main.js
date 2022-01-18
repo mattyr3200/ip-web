@@ -2,5 +2,9 @@ import { createApp } from "vue";
 import App from "./App.vue";
 import "./styles/app.css";
 import router from "./router/routes";
+import getCookie from "./api/csrf";
+import { createPinia } from "pinia";
 
-createApp(App).use(router).mount("#app");
+getCookie();
+
+createApp(App).use(router).use(createPinia()).mount("#app");
