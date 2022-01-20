@@ -1,7 +1,7 @@
 <template>
   <div class="min-h-screen flex relative">
     <div
-      class="absolute w-72 bg-slate-300 space-y-6 py-7 px-2 inset-y-0 left-0 transform md:relative md:translate-x-0 transition duration-200 ease-in-out"
+      class="z-10 absolute w-72 bg-slate-300 space-y-6 py-7 px-2 inset-y-0 left-0 transform md:relative md:translate-x-0 transition duration-200 ease-in-out"
       :class="{ '-translate-x-full': showSideBar }"
     >
       <!-- Top Logo -->

@@ -12,10 +12,12 @@
   },
   "dependencies": {
     "axios": "^0.24.0",
+    "chart.js": "^3.7.0",
     "eslint-config-prettier": "^8.3.0",
     "js-cookie": "^3.0.1",
     "pinia": "^2.0.9",
     "vue": "^3.2.25",
+    "vue-chart-3": "^3.0.7",
     "vue-router": "4",
     "zxcvbn": "^4.4.2"
   },
