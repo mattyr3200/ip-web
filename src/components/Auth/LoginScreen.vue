@@ -69,7 +69,7 @@ function login() {
     })
     .then((response) => {
       localStorage.setItem("user_token", response.data.token);
-      router.push({ name: "home" });
+      router.push({ name: "dashboard" });
     })
     .catch((e) => {
       console.log(e);
