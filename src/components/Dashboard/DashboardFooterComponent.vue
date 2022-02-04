@@ -12,6 +12,7 @@
         <!-- Items For the List -->
         <div class="space-y-3 p-2">
           <a
+            href="/create/device"
             class="text-sm p-2 rounded flex items-center text-gray-600 space-x-1 hover:bg-gray-300 cursor-pointer"
           >
             <svg

@@ -3,6 +3,7 @@ import HomePage from "../components/HomePages/HomePage.vue";
 import LoginScreen from "../components/Auth/LoginScreen.vue";
 import RegisterScreen from "../components/Auth/RegisterScreen.vue";
 import DashboardScreen from "../components/Dashboard/DashboardScreen.vue";
+import CreateDeviceScreen from "../components/Device/Create/CreateDeviceScreen.vue";
 import isAuthenticated from "../helpers/authenticated";
 
 /**
@@ -31,6 +32,12 @@ const routes = [
     path: "/dashboard",
     component: DashboardScreen,
     name: "dashboard",
+    meta: { requiresAuth: true },
+  },
+  {
+    path: "/create/device",
+    component: CreateDeviceScreen,
+    name: "createDevice",
     meta: { requiresAuth: true },
   },
 ];

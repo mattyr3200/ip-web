@@ -6,7 +6,10 @@
     >
       <!-- Top Logo -->
       <div class="flex items-center justify-between sticky top-4">
-        <a href="#" class="text-gray-600 flex items-center space-x-2 px-4">
+        <a
+          href="/dashboard"
+          class="text-gray-600 flex items-center space-x-2 px-4"
+        >
           <img
             src="../../assets/logo.png"
             alt="Logo"
@@ -27,7 +30,7 @@
       <nav class="sticky top-16 space-y-1">
         <!-- Home Button -->
         <a
-          href="#"
+          href="/dashboard"
           class="flex py-3 px-2 rounded hover:bg-gray-400 transition-colors duration-150 space-x-2"
           :class="{
             'bg-gray-400': $router.currentRoute.value.name === 'dashboard',
