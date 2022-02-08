@@ -2,7 +2,7 @@
   <div>
     <!-- Account Box -->
     <button
-      class="flex items-center space-x-2 px-4 bg-gray-100 hover:bg-gray-200 py-2 mx-2 rounded"
+      class="shadow-md flex items-center space-x-2 px-4 bg-gray-100 hover:bg-gray-200 py-2 mx-4 rounded"
       v-on:click="changeShowDropdown"
     >
       <img

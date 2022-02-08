@@ -1,72 +1,13 @@
 <template>
   <div class="space-y-2">
-    <div class="flex justify-between rounded-full">
-      <div class="w-full flex items-center">
-        <div
-          :class="{
-            'bg-green-300': state.step > 1,
-            'bg-blue-300': state.step === 1,
-          }"
-          class="text-white w-10 h-10 rounded-full flex justify-center items-center bg-gray-300 shadow"
-        >
-          1
-        </div>
-        <span
-          :class="{
-            'bg-blue-300': state.step > 1 && state.step <= 2,
-            'bg-green-300': state.step > 2,
-          }"
-          class="hidden md:flex h-2 w-[80%] bg-gray-300 mx-auto rounded-full"
-        ></span>
-      </div>
-      <div class="w-full flex items-center">
-        <div
-          :class="{
-            'bg-green-300': state.step > 2,
-            'bg-blue-300': state.step === 2,
-          }"
-          class="text-white w-10 h-10 rounded-full flex justify-center items-center bg-gray-300 shadow"
-        >
-          2
-        </div>
-        <span
-          :class="{
-            'bg-blue-300': state.step > 2 && state.step <= 3,
-            'bg-green-300': state.step > 2,
-          }"
-          class="hidden md:flex h-2 w-[80%] bg-gray-300 mx-auto rounded-full"
-        ></span>
-      </div>
-      <div class="w-full flex items-center">
-        <div
-          :class="{
-            'bg-green-300': state.step > 3,
-            'bg-blue-300': state.step === 3,
-          }"
-          class="text-white w-10 h-10 rounded-full flex justify-center items-center bg-gray-300 shadow"
-        >
-          3
-        </div>
-        <span
-          :class="{ 'bg-green-300': state.step === 4 }"
-          class="hidden md:flex h-2 w-[80%] bg-gray-300 mx-auto rounded-full"
-        ></span>
-      </div>
-      <div>
-        <div
-          :class="{ 'bg-green-300': state.step === 4 }"
-          class="text-white w-10 h-10 rounded-full flex justify-center items-center bg-gray-300 shadow"
-        >
-          4
-        </div>
-      </div>
-    </div>
+    <StepCounterComponent :state="state" />
 
     <component
       :is="stepComponent"
       :state="state"
       @connect-device="connectBluetooth"
       @disconnect-device="manualDeviceDisconnect"
+      @device-created="sendDeviceIdToDevice"
       @attempt-connection="connectBLEDeviceToWifi"
     />
 
@@ -126,22 +67,24 @@ import sleep from "../../../helpers/sleep";
 import decodeValue from "../../../helpers/decodeValue";
 import encodeValue from "../../../helpers/encodeValue";
 import BLEResponseCommands from "../../../enums/BLECommandsEnum";
+import StepCounterComponent from "./StepCounterComponent.vue";
 
 const state = reactive({
-  step: 1,
+  step: 3,
   device: {},
   server: {},
   service: {},
   rxCharacteristic: {},
   isWifiConnected: false,
+  isDeviceConfigured: false,
   isResponseLoading: false,
   lastBLEResponse: "",
 });
 
 const stepDisabled = computed(() => {
   if (state.step === 1 && state.device.id === undefined) return true;
-  if (state.step === 2) return true;
-  if (state.step === 3) return true;
+  if (state.step === 2 && state.isWifiConnected) return true;
+  if (state.step === 3 && state.isDeviceConfigured) return true;
   return false;
 });
 
@@ -154,21 +97,29 @@ async function connectBLEDeviceToWifi(values) {
       password: values.password,
     }),
     true
-  ); // this requires the code to "sleep" to allow the arduino to try and connect to WIFI
-
-  console.log(response);
-  console.log(state.lastBLEResponse);
+  );
 
   if (response == BLEResponseCommands.WIFI_CONNECTED) {
-    console.log("YAY");
     state.isWifiConnected = true;
     next();
   } else {
-    console.log("WIFI FAILed");
     state.isWifiConnected = false;
   }
 
   state.isResponseLoading = false;
+}
+
+function sendDeviceIdToDevice(deviceId) {
+  const response = sendValueToDevice(
+    JSON.stringify({
+      device_id: deviceId,
+    }),
+    true
+  );
+
+  if (response === BLEResponseCommands.DEVICE_CONFIGURED) {
+    state.isDeviceConfigured = true;
+  }
 }
 
 // sending message to bluetooth device

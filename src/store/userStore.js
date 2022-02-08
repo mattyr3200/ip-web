@@ -11,7 +11,7 @@ export const useUser = defineStore("user", {
     async getUserInfo() {
       try {
         await apiClient.get("/api/user").then((response) => {
-          this.username = response.data.username;
+          this.username = response.data.name;
           this.email = response.data.email;
           this.id = response.data.id;
         });

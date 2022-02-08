@@ -4,6 +4,7 @@ const BLEResponseCommands = {
   ACK_OK: "ACK OK",
   MODE_CREATE: "ACK MODE: CREATE",
   ACK_ERROR: "ACK ERROR",
+  DEVICE_CONFIGURED: "ACK CONFIGURED",
 };
 
 export default BLEResponseCommands;

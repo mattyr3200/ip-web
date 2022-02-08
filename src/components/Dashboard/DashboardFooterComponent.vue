@@ -1,5 +1,5 @@
 <template>
-  <footer class="bg-transparent fixed inset-x-0 bottom-0 p-4">
+  <footer class="z-20 bg-transparent fixed inset-x-0 bottom-0 p-4">
     <!-- Positioning -->
     <div
       class="transform origin-bottom-right scale-110"

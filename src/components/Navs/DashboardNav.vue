@@ -63,7 +63,7 @@
     <div class="w-full">
       <!-- Top Nav Bar -->
       <div
-        class="h-16 w-full flex items-center justify-between md:justify-end md:sticky md:top-0"
+        class="z-20 h-16 w-full flex items-center justify-between md:justify-end md:sticky md:top-0"
       >
         <!-- Hamburger Icon -->
         <button class="px-2 md:hidden" v-on:click="updateShowSidebar">
