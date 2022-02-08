@@ -1,5 +1,5 @@
 <template>
-  <footer class="bg-transparent fixed inset-x-0 bottom-0 p-4">
+  <footer class="z-20 bg-transparent fixed inset-x-0 bottom-0 p-4">
     <!-- Positioning -->
     <div
       class="transform origin-bottom-right scale-110"
@@ -12,6 +12,7 @@
         <!-- Items For the List -->
         <div class="space-y-3 p-2">
           <a
+            href="/create/device"
             class="text-sm p-2 rounded flex items-center text-gray-600 space-x-1 hover:bg-gray-300 cursor-pointer"
           >
             <svg

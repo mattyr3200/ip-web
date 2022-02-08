@@ -3,7 +3,7 @@ import apiClient from "../api/api";
 
 export const useDevice = defineStore("device", {
   state: () => ({
-    devices: {},
+    devices: [],
   }),
   actions: {
     async getDevices() {

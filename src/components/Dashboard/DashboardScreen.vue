@@ -1,11 +1,11 @@
 <template>
   <div>
-    <div
-      class="grid sm:grid-cols-2 md:grid-cols-3 gap-2"
-      v-for="device in deviceStore.devices"
-      :key="device.id"
-    >
-      <DeviceCardComponent />
+    <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-2">
+      <DeviceCardComponent
+        :device="device"
+        v-for="device in deviceStore.devices"
+        :key="device.id"
+      />
     </div>
     <div
       v-if="deviceStore.devices.length === 0"
