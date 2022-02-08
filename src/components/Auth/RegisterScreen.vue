@@ -95,29 +95,24 @@
 import { ref, computed } from "vue";
 import PasswordStrengthIndicatorVue from "./PasswordStrengthIndicator.vue";
 import zxcvbn from "zxcvbn";
-import apiClient from "../../api/api";
-import router from "../../router/routes";
+import { useUser } from "../../store/userStore";
+import { useAuth } from "../../store/authStore";
 
 const username = ref("");
 const email = ref("");
 const password = ref("");
 const confirmedPassword = ref("");
 
-const register = () => {
-  apiClient
-    .post("/api/register", {
-      username: username.value,
-      email: email.value,
-      password: password.value,
-    })
-    .then((response) => {
-      localStorage.setItem("user_token", response.data.token);
-      router.push({ name: "dashboard" });
-    })
-    .catch((e) => {
-      console.log(e);
+const user = useUser();
+const auth = useAuth();
+
+async function register() {
+  await auth
+    .register(username.value, email.value, password.value)
+    .then(async () => {
+      await user.getUserInfo();
     });
-};
+}
 
 const passwordStrength = computed(() => {
   return zxcvbn(password.value).score;
@@ -129,6 +124,7 @@ const passwordsMatch = computed(() => {
 
 const formValid = computed(() => {
   return !(
+    passwordStrength >= 3 &&
     passwordsMatch.value &&
     username.value != "" &&
     email.value != "" &&
