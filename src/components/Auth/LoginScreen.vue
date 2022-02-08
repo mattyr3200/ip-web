@@ -54,25 +54,19 @@
 </template>
 
 <script setup>
-import router from "../../router/routes";
 import { ref } from "vue";
-import apiClient from "../../api/api";
+import { useAuth } from "../../store/authStore";
+import { useUser } from "../../store/userStore";
 
 const email = ref("");
 const password = ref("");
 
-function login() {
-  apiClient
-    .post("/api/login", {
-      email: email.value,
-      password: password.value,
-    })
-    .then((response) => {
-      localStorage.setItem("user_token", response.data.token);
-      router.push({ name: "dashboard" });
-    })
-    .catch((e) => {
-      console.log(e);
-    });
+const auth = useAuth();
+const user = useUser();
+
+async function login() {
+  await auth.login(email.value, password.value).then(async () => {
+    await user.getUserInfo();
+  });
 }
 </script>

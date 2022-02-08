@@ -22,8 +22,8 @@ import { LineChart, useLineChart } from "vue-chart-3";
 import { computed, ref } from "vue";
 import CogOutlined from "../Icons/CogOutlined.vue";
 
-const labels = ["Paris", "Nîmes", "Toulon", "Perpignan", "Autre"];
-const data = [65, 59, 80, 81, 56, 55, 40];
+const labels = ["Paris", "Nîmes", "Toulon", "Perpignan", "Autre"]; // replaced with dates
+const data = [65, 59, 80, 81, 56, 55, 40]; // replaced with count
 
 const alarmActive = ref(false);
 
