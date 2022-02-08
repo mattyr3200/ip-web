@@ -10,7 +10,7 @@
         class="h-10 w-10 rounded-full"
         alt=""
       />
-      <p>Mattyr3200</p>
+      <p>{{ user.username === "" ? "Loading..." : user.username }}</p>
       <CheveronDown />
     </button>
 
@@ -25,7 +25,7 @@
         <div class="px-4 py-3">
           <p class="text-sm leading-5">Signed in as</p>
           <p class="text-sm font-medium leading-5 text-gray-900 truncate">
-            tom@example.com
+            {{ user.email === "" ? "Loading..." : user.email }}
           </p>
         </div>
       </div>
@@ -35,7 +35,12 @@
 
 <script setup>
 import { ref } from "vue";
+import { useUser } from "../../store/userStore";
 import CheveronDown from "../Icons/CheveronDown.vue";
+
+const user = useUser();
+
+user.getUserInfo();
 
 const showDropdown = ref(true);
 
