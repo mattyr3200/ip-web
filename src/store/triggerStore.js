@@ -7,9 +7,13 @@ export const useTriggers = defineStore("trigger", {
   }),
   actions: {
     async createTrigger(deviceId, data) {
-      await apiClient.post("/api/trigger", data).then((response) => {
-        this.triggers[deviceId].push(response.data);
-      });
+      try {
+        await apiClient.post("/api/trigger", data).then((response) => {
+          this.triggers[deviceId].push(response.data);
+        });
+      } catch (e) {
+        return e;
+      }
     },
     async getTriggers(deviceId) {
       await apiClient.get(`/api/${deviceId}/triggers`).then((response) => {

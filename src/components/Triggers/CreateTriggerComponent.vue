@@ -48,6 +48,7 @@
         Create Trigger
       </button>
     </div>
+    <ExceptionViewer :exceptions="getExceptions" />
     <div
       class="w-full bg-green-300 p-4 rounded-lg flex items-center text-white ease-in-out"
       v-if="showSuccess.value"
@@ -69,27 +70,29 @@
       Trigger Created
     </div>
   </div>
-  <!-- 
-  'name' => ['required'],
-  'description' => ['required'],
-  'wire' => ['required', 'gte:1', 'lte:10', 'integer'],
-  'trigger_voltage' => ['required'],
-  'device_id' => ['required'],
---></template>
+</template>
 
 <script setup>
-import { ref } from "vue";
+import { computed, ref } from "vue";
 import { useTriggers } from "../../store/triggerStore";
+import exceptionFormatter from "../../helpers/exceptionFormatter";
+import ExceptionViewer from "../Exceptions/ExceptionViewer.vue";
 
 const props = defineProps({
   id: String,
 });
+// 'name' => ['required'],
+// 'description' => ['required'],
+// 'wire' => ['required', 'gte:1', 'lte:10', 'integer'],
+// 'trigger_voltage' => ['required'],
+// 'device_id' => ['required'],
 
 const triggerName = ref("");
 const triggerDescription = ref("");
 const triggerWire = ref(1);
 const triggerVoltage = ref(false);
 const showSuccess = ref(false);
+const exception = ref([]);
 
 const triggerStore = useTriggers();
 
@@ -103,10 +106,18 @@ function createTrigger() {
       trigger_voltage: triggerVoltage.value,
       device_id: props.id,
     })
-    .then(() => {
+    .then((response) => {
+      if ((response.response.status = !undefined)) {
+        exception.value = [response.response.data.errors];
+        return;
+      }
       showSuccess.value = true;
     });
 }
+
+const getExceptions = computed(() => {
+  return exceptionFormatter(exception.value);
+});
 </script>
 
 <style></style>

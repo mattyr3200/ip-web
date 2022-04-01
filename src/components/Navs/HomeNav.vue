@@ -2,7 +2,7 @@
   <div>
     <nav>
       <div
-        class="space-y-1 md:space-y-0 shadow-lg md:shadow-none m-2 md:m-0 rounded-lg md:flex md:items-center md:justify-evenly md:py-2 p-4 md:px-6"
+        class="space-y-1 md:space-y-0 shadow-lg md:shadow-none m-2 md:m-0 rounded-lg md:flex md:items-center md:justify-between md:py-2 p-4 md:px-6"
       >
         <!-- Mobile Menu -->
         <div class="w-full md:w-8 flex justify-between">
@@ -13,7 +13,7 @@
           </button>
         </div>
 
-        <!-- Clickable Links -->
+        <!-- Clickable Links
         <a
           href="#"
           :class="{ 'hidden md:block': navVisible }"
@@ -37,7 +37,7 @@
           :class="{ 'hidden md:block': navVisible }"
           class="block transition-colors duration-200 hover:bg-slate-300 p-4 rounded"
           >Products</a
-        >
+        > -->
 
         <!-- Login and Register Buttons -->
         <div
