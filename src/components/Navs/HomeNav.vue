@@ -58,7 +58,7 @@
       </div>
     </nav>
 
-    <div class="p-2">
+    <div class="">
       <!-- Content Slot -->
       <slot></slot>
     </div>

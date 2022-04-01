@@ -5,6 +5,11 @@ export const useDevice = defineStore("device", {
   state: () => ({
     devices: [],
   }),
+  getters: {
+    getDeviceByID(id) {
+      return this.devices.find((user) => user.id === id);
+    },
+  },
   actions: {
     async getDevices() {
       try {
@@ -40,6 +45,22 @@ export const useDevice = defineStore("device", {
       } catch (e) {
         return e;
       }
+    },
+
+    async updateDeviceStatus(deviceId, status) {
+      await apiClient
+        .post(`/api/${deviceId}/arm`, {
+          is_armed: status,
+        })
+        .then((response) => {
+          const deviceFiltered = this.devices.filter((device) => {
+            return device.id === response.data.id;
+          });
+
+          const index = this.devices.indexOf(deviceFiltered[0]);
+
+          this.devices[index] = response.data;
+        });
     },
 
     async deleteDevice(id) {

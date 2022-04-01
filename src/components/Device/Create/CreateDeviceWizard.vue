@@ -70,7 +70,7 @@ import BLEResponseCommands from "../../../enums/BLECommandsEnum";
 import StepCounterComponent from "./StepCounterComponent.vue";
 
 const state = reactive({
-  step: 3,
+  step: 1,
   device: {},
   server: {},
   service: {},
@@ -119,6 +119,7 @@ function sendDeviceIdToDevice(deviceId) {
 
   if (response === BLEResponseCommands.DEVICE_CONFIGURED) {
     state.isDeviceConfigured = true;
+    next();
   }
 }
 

@@ -6,19 +6,22 @@ import router from "../router/routes";
 export const useAuth = defineStore("auth", {
   actions: {
     async login(email, password) {
-      await getCookie();
-      await apiClient
-        .post("/api/login", {
-          email,
-          password,
-        })
-        .then((response) => {
-          localStorage.setItem("user_token", response.data.token);
-          router.push({ name: "dashboard" });
-        })
-        .catch((e) => {
-          console.log(e);
-        });
+      try {
+        await getCookie();
+        await apiClient
+          .post("/api/login", {
+            email,
+            password,
+          })
+          .then((response) => {
+            // (response) => { console.log(response) },
+            // (error) => { console.log(error) }
+            localStorage.setItem("user_token", response.data.token);
+            router.push({ name: "dashboard" });
+          });
+      } catch (error) {
+        return error;
+      }
     },
 
     async register(username, email, password) {
@@ -34,21 +37,17 @@ export const useAuth = defineStore("auth", {
           router.push({ name: "dashboard" });
         })
         .catch((e) => {
-          console.log(e);
+          return e;
         });
     },
 
     // TODO: Implement logout on the API
     async logout() {
-      await apiClient
-        .get("/api/logout")
-        .then(() => {
-          localStorage.clear();
-          router.push({ name: "home" });
-        })
-        .catch((e) => {
-          console.log(e);
-        });
+      await apiClient.get("/api/logout").catch((e) => {
+        console.log(e);
+      });
+      localStorage.clear();
+      router.push({ name: "home" });
     },
   },
 });

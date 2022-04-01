@@ -41,13 +41,16 @@
         </a>
 
         <!-- About Button -->
-        <a
-          href="#"
+        <!-- <a
+          href="/about"
           class="flex py-3 px-2 rounded hover:bg-gray-400 transition-colors duration-150 space-x-2"
+          :class="{
+            'bg-gray-400': $router.currentRoute.value.name === 'about',
+          }"
         >
           <InfoOutlined />
           <p>About</p>
-        </a>
+        </a> -->
 
         <!-- Settings Button -->
         <a
@@ -86,7 +89,7 @@
 import { ref } from "vue";
 import AccountDropdown from "./AccountDropdown.vue";
 import HomeOutlined from "../Icons/HomeOutlined.vue";
-import InfoOutlined from "../Icons/InfoOutlined.vue";
+// import InfoOutlined from "../Icons/InfoOutlined.vue";
 import CogOutlined from "../Icons/CogOutlined.vue";
 import CrossOutline from "../Icons/CrossOutline.vue";
 import HamburgerOutlined from "../Icons/HamburgerOutlined.vue";
