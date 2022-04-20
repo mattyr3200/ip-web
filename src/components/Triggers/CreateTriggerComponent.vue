@@ -40,6 +40,14 @@
         >
       </label>
     </div>
+    <div class="mt-2">
+      <label class="inline-flex items-center">
+        <input type="checkbox" v-model="emailNotification" />
+        <span class="ml-2"
+          >Receive Email Notifications (Only when alarm is armed)</span
+        >
+      </label>
+    </div>
     <div class="flex justify-end items-center">
       <button
         v-on:click="createTrigger"
@@ -93,6 +101,7 @@ const triggerWire = ref(1);
 const triggerVoltage = ref(false);
 const showSuccess = ref(false);
 const exception = ref([]);
+const emailNotification = ref(false);
 
 const triggerStore = useTriggers();
 
@@ -105,6 +114,7 @@ function createTrigger() {
       wire: triggerWire.value,
       trigger_voltage: triggerVoltage.value,
       device_id: props.id,
+      email_notify: emailNotification.value,
     })
     .then((response) => {
       if ((response.response.status = !undefined)) {

@@ -37,7 +37,7 @@
             {{ trigger.trigger_voltage }}
           </td>
           <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-            {{ trigger.trigger_time }}
+            {{ getTriggerLogTime(trigger.trigger_time) }}
           </td>
         </tr>
       </tbody>
@@ -50,9 +50,11 @@
 
 import { computed } from "vue";
 import { useTriggerLogs } from "../../../store/triggerLogStore";
+import moment from "moment";
 
 const props = defineProps({
   id: String,
+  showTimeStamp: Boolean,
 });
 
 const triggerLogStore = useTriggerLogs();
@@ -60,4 +62,12 @@ const triggerLogStore = useTriggerLogs();
 triggerLogStore.getTriggerLogs(props.id);
 
 const deviceTriggers = computed(() => triggerLogStore.triggerLogs[props.id]);
+
+function getTriggerLogTime(time) {
+  if (!props.showTimeStamp) {
+    return moment(time).fromNow(false);
+  }
+
+  return time;
+}
 </script>
