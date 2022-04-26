@@ -1,28 +1,35 @@
 <template>
-  <LineChart
-    v-bind="lineChartProps"
-    class="col-span-2 block box-border w-full"
-  />
+  <div class="col-span-2 block box-border w-full">
+    <WeeklyLogGraph
+      :id="props.id"
+      v-if="getGraphDuration == 'week'"
+      :inheritClass="'col-span-2 block box-border w-full'"
+    />
+    <MonthlyLogGraph
+      :id="props.id"
+      v-if="getGraphDuration == 'month'"
+      :inheritClass="'col-span-2 block box-border w-full'"
+    />
+    <YearlyLogGraph
+      :id="props.id"
+      v-if="getGraphDuration == 'year'"
+      :inheritClass="'col-span-2 block box-border w-full'"
+    />
+  </div>
 </template>
 
 <script setup>
-import { LineChart, useLineChart } from "vue-chart-3";
-import { computed } from "vue";
+import WeeklyLogGraph from "./TriggerSummarys/WeeklyLogGraph.vue";
+import MonthlyLogGraph from "./TriggerSummarys/MonthlyLogGraph.vue";
+import YearlyLogGraph from "./TriggerSummarys/YearlyLogGraph.vue";
+import { computed } from "vue-demi";
 
-const chartData = computed(() => ({
-  labels: ["Paris", "Nîmes", "Toulon", "Perpignan", "Autre"],
-  datasets: [
-    {
-      label: "No of Trigger Events",
-      data: [30, 40, 60, 70, 5],
-      fill: true,
-      borderColor: "rgb(75, 192, 192)",
-      tension: 0.2,
-    },
-  ],
-}));
+const props = defineProps({
+  id: String,
+  graphDuration: String,
+});
 
-const { lineChartProps } = useLineChart({
-  chartData,
+const getGraphDuration = computed(() => {
+  return props.graphDuration;
 });
 </script>
