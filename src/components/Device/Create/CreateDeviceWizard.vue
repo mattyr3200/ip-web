@@ -91,12 +91,19 @@ const stepDisabled = computed(() => {
 async function connectBLEDeviceToWifi(values) {
   state.isResponseLoading = true;
 
-  const response = await sendValueToDevice(
+  await sendValueToDevice(
     JSON.stringify({
       ssid: values.username,
       password: values.password,
     }),
     true
+  );
+
+  const response = await sendValueToDevice(
+    JSON.stringify({
+      ssid: values.username,
+      password: values.password,
+    })
   );
 
   if (response == BLEResponseCommands.WIFI_CONNECTED) {
@@ -109,8 +116,10 @@ async function connectBLEDeviceToWifi(values) {
   state.isResponseLoading = false;
 }
 
-function sendDeviceIdToDevice(deviceId) {
-  const response = sendValueToDevice(
+async function sendDeviceIdToDevice(deviceId) {
+  state.isResponseLoading = true;
+
+  const response = await sendValueToDevice(
     JSON.stringify({
       device_id: deviceId,
     }),
@@ -121,6 +130,8 @@ function sendDeviceIdToDevice(deviceId) {
     state.isDeviceConfigured = true;
     next();
   }
+
+  state.isResponseLoading = false;
 }
 
 // sending message to bluetooth device

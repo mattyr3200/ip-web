@@ -2,7 +2,7 @@
   <div>
     <form
       @submit.prevent="createDevice"
-      class="p-4 border border-green-300 space-y-2 rounded m-3"
+      class="p-4 border space-y-2 rounded m-3 md:border md:shadow"
     >
       <input
         class="p-2 border rounded w-full"
@@ -16,7 +16,7 @@
         v-model="formData.deviceSite"
         placeholder="Device Site"
       />
-      <div class="flex justify-end mt-2">
+      <div class="flex justify-end mt-2 items-center">
         <svg
           v-if="isLoading"
           class="animate-spin mr-1 h-5 w-5 text-fuchsia-300"
@@ -43,7 +43,7 @@
           :disabled="props.state.isDeviceConfigured"
           type="submit"
           value="Create Device"
-          class="disabled:bg-white p-2 rounded border border-fuchsia-500 bg-fuchsia-200 hover:bg-fuchsia-400"
+          class="p-2 bg-gray-200 hover:bg-gray-300 disabled:bg-gray-100 rounded"
         />
       </div>
     </form>
@@ -69,7 +69,7 @@ const formData = reactive({
 const deviceStore = useDevice();
 
 const isLoading = computed(() => {
-  return formData.loading;
+  return props.state.isResponseLoading;
 });
 
 async function createDevice() {

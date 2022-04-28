@@ -1,5 +1,6 @@
 import { defineStore } from "pinia";
 import apiClient from "../api/api";
+import router from "../router/routes";
 
 export const useDevice = defineStore("device", {
   state: () => ({
@@ -73,6 +74,8 @@ export const useDevice = defineStore("device", {
           const index = this.devices.indexOf(deviceFiltered[0]);
 
           this.devices.splice(index, 1);
+
+          router.push({ name: "dashboard" });
         });
       } catch (e) {
         return e;
